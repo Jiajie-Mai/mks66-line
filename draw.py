@@ -1,52 +1,82 @@
 from display import *
 
 def draw_line( x0, y0, x1, y1, screen, color ):
-    #finds slope of the line and does the appropriate line drawer
-    undefined = true
-
-    #calculates slope and does undefined if the x's are the same
+    #calculates slope
+    #changes to second octant if the slope is undefined and goes up
+    #changes to seventh octant if the slope is undefined and goes down
     if (x1 - x0 == 0 and y1 - y0 <= 0):
-        m = -1
-    elif (x1 - x0 == 0 and y1 - y0 >= 0):
-        m = 1
+        m = -2
+    elif (x1 - x0 == 0 and y1 - y0 > 0):
+        m = 2
     else:
-        undefined = false
         m = (y1 - y0)/(x1 - x0)
 
     #does a and b for the lines
     a = y1 - y0
-    b = x1 - x0
+    b = -(x1 - x0)
 
     #does things depending on slope
-    if ((undefined == true and m == 1) or m > 1):
-        secondq( x0, y0, x1, y1, a, b, screen, color )
+    if  (m > 1):
+        second( x0, y0, x1, y1, a, b, screen, color )
     elif (m <= 1 and m >= 0):
-        firstq( x0, y0, x1, y1, a, b, screen, color )
+        first( x0, y0, x1, y1, a, b, screen, color )
     elif(m < 0 and m >= -1):
-        eighthq( x0, y0, x1, y1, a, b, screen, color )
-    elif ((undefined == true and m == -1) or  m < -1):
-        seventhq( x0, y0, x1, y1, a, b, screen, color )
+        seventh( x0, y0, x1, y1, a, b, screen, color )
+    elif (m < -1):
+        eighth( x0, y0, x1, y1, a, b, screen, color )
 
-def firstq( x0, y0, x1, y1, a, b, screen, color ):
+#this is for the fist octant
+def first( x0, y0, x1, y1, a, b, screen, color ):
     x = x0
     y = y0
     d = 2 * a + b
     while x < x1:
-        plot( x , y )
-        if d > 0
-            y++
-            d += 2b
-        x++
-        d += 2a
+        plot( screen, color, x , y )
+        if d > 0:
+            y += 1
+            d += 2 * b
+        x += 1
+        d += 2 * a
+    return 1
 
-def secondq(  x0, y0, x1, y1, a, b, screen, color ):
+#this is for the second octant
+def second(  x0, y0, x1, y1, a, b, screen, color ):
     x = x0
     y = y0
     d = 2 * b + a
     while y < y1:
-        plot( x , y)
+        plot( screen, color, x , y )
         if d < 0:
-            x++
-            d += 2a
-        y++
-        d += 2b
+            x += 1
+            d += 2 * a
+        y += 1
+        d += 2 * b
+    return 1
+
+#this is for the eighth octant
+def eighth( x0 , y0, x1, y1, a, b, screen, color ):
+    x = x0
+    y = y0
+    d = 2 * b - a
+    while y > y1:
+        plot(  screen, color, x , y )
+        if d > 0:
+            x += 1
+            d -= 2 * a
+        y -= 1
+        d -= 2 * b
+    return 1
+
+#this is for the seventh octant
+def seventh(  x0 , y0, x1, y1, a, b, screen, color ):
+    x = x0
+    y = y0
+    d = 2 * a - b
+    while y < y1:
+        plot(  screen, color, x , y )
+        if d < 0:
+            y -= 1
+            d -= 2 * b
+        a += 1
+        d += 2 * a
+    return 1
