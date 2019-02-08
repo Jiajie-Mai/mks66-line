@@ -3,5 +3,5 @@ run: main.py
 
 clean:
 	rm *.pyc
-	rm *~
 	rm img.png
+	rm *~
