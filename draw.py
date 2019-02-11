@@ -11,15 +11,17 @@ def draw_line( x0, y0, x1, y1, screen, color ):
     else:
         m = (y1 - y0)/(x1 - x0)
 
+    print(m)
+
     #does a and b for the lines
     a = y1 - y0
     b = -(x1 - x0)
 
     #does things depending on slope
-    if  (m > 1):
+    if  (m >= 1):
 	print("Doing second octant") 
         second( x0, y0, x1, y1, a, b, screen, color )
-    elif (m <= 1 and m >= 0):
+    elif (m < 1 and m >= 0):
 	print("Doing first octant")
         first( x0, y0, x1, y1, a, b, screen, color )
     elif(m < 0 and m >= -1):
@@ -34,7 +36,7 @@ def first( x0, y0, x1, y1, a, b, screen, color ):
     x = x0
     y = y0
     d = 2 * a + b
-    while x < x1:
+    while x <= x1:        
         plot( screen, color, x , y )
         if d > 0:
             y += 1
@@ -47,7 +49,7 @@ def second(  x0, y0, x1, y1, a, b, screen, color ):
     x = x0
     y = y0
     d = 2 * b + a
-    while y < y1:
+    while y <= y1:
         plot( screen, color, x , y )
         if d < 0:
             x += 1
@@ -59,16 +61,14 @@ def second(  x0, y0, x1, y1, a, b, screen, color ):
 def seventh( x0 , y0, x1, y1, a, b, screen, color ):
     x = x0
     y = y0
-    d = 2 * a + b
-    print(y)
-    print(y1)
-    while y <= y1:
+    d = 2 * b + a
+    while y > y1:
         plot( screen, color, x , y )
         if d > 0:
             x += 1
             d += 2 * a
         y -= 1
-        d -= 2 * a
+        d -= 2 * b
 
 #this is for the eighth octant
 def eighth( x0 , y0, x1, y1, a, b, screen, color ):
